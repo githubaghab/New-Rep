@@ -1,0 +1,47 @@
+    /*
+    Dla zadanej tablicy liczb ca³kowitych A rozmiaru N
+    wyznaczyæ indeksy m oraz M takie, ¿e m < M oraz suma 
+    	s(m,M) = A_m + A_{m+1} + ... + A_{M-1}
+    jest najwiêksza mo¿liwa. Wypisaæ m, M oraz s(m,M).
+     
+    Kolokwium, 2006
+    */
+     
+    #include <stdio.h>
+    #define N 10
+     
+    int main(void)
+    {
+    	int A[N] = {0,1,2,3,-4,-3,1,10,0,0}; /* zadana tablica liczb ca³kowitych */
+    	int s, m, M; /* s, m, M - wg treœci zadania */
+    	int start, i, podsuma;
+     
+    	s = A[0]; m = 0; M = 1;
+    	for( start = 0; start < N; start++ )
+    	{ 
+    	/* bêdziemy sumowaæ tablicê od miejsca "start" a¿ do koñca, badaj¹c
+    	wartoœæ sumy czêœciowej. Gdy bêdzie wiêksza od dotychczasowego maksimum,
+    	zmienimy jego wartoœæ i bêdziemy dalej kontynuowaæ sumowanie */
+     
+    		podsuma = 0; /* wartoœæ sumy elementów A[start]...A[i] */
+    		for( i = start; i < N; i++ )
+    		{
+    			podsuma += A[i];
+    			if(podsuma > s)
+    			{
+    			/* obliczona podsuma jest wiêksza 
+    			od dotychczasowgo maksimum;
+    			nale¿y wiêc zapisaæ jej parametry */
+    				s = podsuma;
+    				m = start;
+    				M = i+1;
+    			}
+    		}
+    	}
+     
+    	/* zosta³y obliczone wszystkie mo¿liwe podsumy */
+     
+    	printf("s(%d,%d)=%d\n",m,M,s);
+    	return(0);
+    }
+     
